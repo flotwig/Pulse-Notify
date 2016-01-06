@@ -1,5 +1,7 @@
 package us.chary.pulsenotify;
 
+import android.app.Activity;
+
 import com.harman.pulsesdk.DeviceModel;
 import com.harman.pulsesdk.PulseColor;
 import com.harman.pulsesdk.PulseThemePattern;
@@ -18,6 +20,9 @@ public class Pulse {
         colorStack = new PulseColor[3]; // 0 highest
         for(int i=0; i<colorStack.length; i++)
             colorStack[i] = new PulseColor((byte)0,(byte)0,(byte)0);
+    }
+    public Boolean connect(Activity activity) {
+        return phi.ConnectMasterDevice(activity);
     }
     public Boolean pushColor(int argb) {
         colorStack[2] = colorStack[1];
