@@ -36,17 +36,17 @@ public class Pulse {
         return render();
     }
     private Boolean render() {
-        // 3x3 lines of color separated by 2x1 lines of black
+        // 3x2 lines of color separated by 3x1 lines of black
         // LTR, TopTBottom
         int width = 11, height = 9;
         PulseColor[] pixels = new PulseColor[99];
         for (int i=0; i<colorStack.length; i++) {
-            for (int k=0; k<3; k++)
-                for (int j=0; j<width; j++)
-                    pixels[(i+k+1)*11 + j] = colorStack[i];
-            if (i<colorStack.length-1)
-                for (int j=0; j<width; j++)
-                    pixels[(i+4)*11 + j] = new PulseColor((byte)0,(byte)0,(byte)0);
+            for (int k=0; k<2; k++) {
+                for (int j = 0; j < width; j++) {
+                    pixels[(i + k + 1) * 11 + j] = colorStack[i];
+                    pixels[(i + 3) * 11 + j] = new PulseColor((byte) 0, (byte) 0, (byte) 0);
+                }
+            }
         }
         return phi.SetColorImage(pixels);
     }
