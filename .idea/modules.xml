@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Pulse-Notify.iml" filepath="$PROJECT_DIR$/Pulse-Notify.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libPulseSDK/libPulseSDK.iml" filepath="$PROJECT_DIR$/libPulseSDK/libPulseSDK.iml" />
     </modules>
   </component>
 </project>
