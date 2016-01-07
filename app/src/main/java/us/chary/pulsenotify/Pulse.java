@@ -96,12 +96,19 @@ public class Pulse {
         Log.i(LOG_TAG,"Color pushed: " + argb);
         return render();
     }
-    public Boolean removeColor(int argb) {
-        return Boolean.FALSE;
-    }
     public Boolean pushColor(int argb, int index) {
         colorStack[index] = int2pc(argb);
         return render();
+    }
+    public Boolean removeColor(int argb) {
+        for(int i=0; i<colorStack.length; i++){
+            if((colorStack[i].red == ((byte) (argb >> 16))) &&
+               (colorStack[i].green == ((byte) (argb >> 8))) &&
+               (colorStack[i].blue == ((byte) (argb)))) {
+                pushColor(0x000000, i);
+                // TODO make remaining colors move up
+            }
+        }
     }
     private Boolean render() {
         // 3x2 lines of color separated by 3x1 lines of black
