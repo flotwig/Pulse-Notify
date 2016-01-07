@@ -3,7 +3,6 @@ package us.chary.pulsenotify;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,14 +21,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Pulse pulse = new Pulse();
                 pulse.connect(activity);
-                pulse.phi.SetBackgroundColor(new PulseColor((byte) 255, (byte) 255, (byte) 255), true);
-//                pulse.pushColor(0xff0000);
-//                pulse.pushColor(0x00ff00);
-//                pulse.pushColor(0x0000ff);
+                pulse.pushColor(0xff0000);
+                pulse.pushColor(0x00ff00);
+                pulse.pushColor(0x0000ff);
             }
         });
 
         NotificationListener.registerNotifListenerOnBtn(this);
+        NotificationListener.registerCalendarNotifierListenerOnBtn(this);
     }
 
     @Override

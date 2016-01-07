@@ -14,4 +14,9 @@
         android:text="Send notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/calendar_btn"
+        android:text="Update Pulse with time to next event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
