@@ -9,19 +9,36 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class NotificationListener extends NotificationListenerService {
+
+    private Pulse pulse;
+    private ArrayList<String> activeNotifs = new ArrayList<>();
+
+    public NotificationListener() {
+        pulse = new Pulse();
+        pulse.connect((Activity) getApplication().getApplicationContext());
+    }
+
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-
+        activeNotifs.remove(sbn.getPackageName());
     }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         Log.d("WATCH", sbn.getPackageName());
         String pkgName = sbn.getPackageName();
+        int color = sbn.getNotification().color;
+
         if(pkgName.equalsIgnoreCase("com.facebook.orca")){
+            pulse.pushColor(color, 0);
+            activeNotifs.add(pkgName);
             Log.d("WATCH", "facebook thing. Color is " + sbn.getNotification().color);
         }else if(pkgName.equalsIgnoreCase("com.google.android.gm")){
+            pulse.pushColor(color, 1);
+            activeNotifs.add(pkgName);
             Log.d("WATCH", "google thing. Color is " + sbn.getNotification().color);
         }
     }
