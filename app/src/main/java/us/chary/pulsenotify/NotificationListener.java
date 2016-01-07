@@ -23,7 +23,7 @@ public class NotificationListener extends NotificationListenerService {
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        activeNotifs.remove(sbn.getPackageName());
+//        activeNotifs.remove(sbn.getPackageName());
     }
 
     @Override
@@ -33,11 +33,11 @@ public class NotificationListener extends NotificationListenerService {
         int color = sbn.getNotification().color;
 
         if(pkgName.equalsIgnoreCase("com.facebook.orca")){
-            pulse.pushColor(color, 0);
+            pulse.pushColor(color);
             activeNotifs.add(pkgName);
             Log.d("WATCH", "facebook thing. Color is " + sbn.getNotification().color);
         }else if(pkgName.equalsIgnoreCase("com.google.android.gm")){
-            pulse.pushColor(color, 1);
+            pulse.pushColor(color);
             activeNotifs.add(pkgName);
             Log.d("WATCH", "google thing. Color is " + sbn.getNotification().color);
         }
