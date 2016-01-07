@@ -92,7 +92,7 @@ public class Pulse {
         colorStack[1] = colorStack[0];
         // extract R,G,B bytes from ARGB integer
         colorStack[0] = int2pc(argb);
-        Log.i("Color pushed: " + argb)
+        Log.i(LOG_TAG,"Color pushed: " + argb);
         return render();
     }
     public Boolean pushColor(int argb, int index) {
