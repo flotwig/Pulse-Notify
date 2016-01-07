@@ -19,9 +19,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.thing).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
+
+        NotificationListener.registerNotifListenerOnBtn(this);
     }
 
     @Override
