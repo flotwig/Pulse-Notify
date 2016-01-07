@@ -19,7 +19,7 @@ public class Pulse {
         phi = new ImplementPulseHandler();
         colorStack = new PulseColor[3]; // 0 highest
         for(int i=0; i<colorStack.length; i++)
-            colorStack[i] = new PulseColor((byte)0,(byte)0,(byte)0);
+            colorStack[i] = int2pc(0x000000);
     }
     public Boolean connect(Activity activity) {
         return phi.ConnectMasterDevice(activity);
@@ -28,11 +28,7 @@ public class Pulse {
         colorStack[2] = colorStack[1];
         colorStack[1] = colorStack[0];
         // extract R,G,B bytes from ARGB integer
-        colorStack[0] = new PulseColor(
-                (byte) (argb >> 16),
-                (byte) (argb >> 8),
-                (byte) argb
-        );
+        colorStack[0] = int2pc(argb);
         return render();
     }
     private Boolean render() {
@@ -44,10 +40,17 @@ public class Pulse {
             for (int k=0; k<2; k++) {
                 for (int j = 0; j < width; j++) {
                     pixels[(i + k + 1) * 11 + j] = colorStack[i];
-                    pixels[(i + 3) * 11 + j] = new PulseColor((byte) 0, (byte) 0, (byte) 0);
+                    pixels[(i + 3) * 11 + j] = int2pc(0x000000);
                 }
             }
         }
         return phi.SetColorImage(pixels);
+    }
+    private PulseColor int2pc(int rgb){
+        return new PulseColor(
+            (byte) (rgb >> 16),
+            (byte) (rgb >> 8),
+            (byte) rgb
+        );
     }
 }
