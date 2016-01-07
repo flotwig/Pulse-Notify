@@ -26,7 +26,6 @@ public class NotificationListener extends NotificationListenerService {
 
     public NotificationListener() {
         Log.d("WATCH", "instantiated");
-//        pulse.connect((Activity) getApplication().getApplicationContext());
     }
 
     @Override

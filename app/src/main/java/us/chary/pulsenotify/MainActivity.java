@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Activity activity = this;
-        Toast.makeText(this, "Turn on notification listening for this app. If it's already on, turn it off and then back on again. Then press the back button on the phone to start the demo.", 6000);
+        Toast.makeText(this, "Before anything, pair the phone with the speaker via bluetooth. Then come back to this app and turn on notification listening for this app. If it's already on, turn it off and then back on again. Then press the back button on the phone to start the demo.", 7000).show();
         Intent intent=new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
         startActivity(intent);
 

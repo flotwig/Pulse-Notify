@@ -27,10 +27,7 @@ public class Pulse {
             @Override
             public void onConnectMasterDevice(){
                 Log.i(LOG_TAG, "onConnectMasterDevice");
-                pulse.pushColor(0xff0000);
-                pulse.pushColor(0xff00ff);
-                pulse.pushColor(0x00ff00);
-
+                pulse.phi.SetLEDPattern(PulseThemePattern.PulseTheme_Canvas);
             }
             @Override
             public void onDisconnectMasterDevice(){
