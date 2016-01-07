@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.harman.pulsesdk.PulseColor;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,9 +22,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Pulse pulse = new Pulse();
                 pulse.connect(activity);
-                pulse.pushColor(0xff0000);
-                pulse.pushColor(0x00ff00);
-                pulse.pushColor(0x0000ff);
+                pulse.phi.SetBackgroundColor(new PulseColor((byte) 255, (byte) 255, (byte) 255), true);
+//                pulse.pushColor(0xff0000);
+//                pulse.pushColor(0x00ff00);
+//                pulse.pushColor(0x0000ff);
             }
         });
 

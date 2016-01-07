@@ -22,10 +22,15 @@ public class Pulse {
         colorStack = new PulseColor[3]; // 0 highest
         for(int i=0; i<colorStack.length; i++)
             colorStack[i] = int2pc(0x000000);
+        final Pulse pulse = this;
         phi.registerPulseNotifiedListener(new PulseNotifiedListener() {
             @Override
             public void onConnectMasterDevice(){
                 Log.i(LOG_TAG, "onConnectMasterDevice");
+                pulse.pushColor(0xff0000);
+                pulse.pushColor(0xff00ff);
+                pulse.pushColor(0x00ff00);
+
             }
             @Override
             public void onDisconnectMasterDevice(){
@@ -81,11 +86,7 @@ public class Pulse {
         });
     }
     public Boolean connect(Activity activity) {
-        if (phi.ConnectMasterDevice(activity)) {
-            Log.i(LOG_TAG,"Pulse connected.");
-            return pushColor(0x000000);
-        }
-        return Boolean.FALSE;
+        return phi.ConnectMasterDevice(activity);
     }
     public Boolean pushColor(int argb) {
         colorStack[2] = colorStack[1];
@@ -94,6 +95,9 @@ public class Pulse {
         colorStack[0] = int2pc(argb);
         Log.i(LOG_TAG,"Color pushed: " + argb);
         return render();
+    }
+    public Boolean removeColor(int argb) {
+        return Boolean.FALSE;
     }
     public Boolean pushColor(int argb, int index) {
         colorStack[index] = int2pc(argb);
@@ -104,17 +108,15 @@ public class Pulse {
         // LTR, TopTBottom
         int width = 11, height = 9;
         PulseColor[] pixels = new PulseColor[99];
-        for (int i=0; i<colorStack.length; i++) {
-            for (int k=0; k<2; k++) {
-                for (int j = 0; j < width; j++) {
-                    pixels[(i + k + 1) * 11 + j] = colorStack[i];
-                    pixels[(i + 3) * 11 + j] = int2pc(0x000000);
-                }
-            }
-        }
+        for (int i=0; i<99; i++)
+            pixels[i] = int2pc(0xffffff);
+        for (int c=0; c<colorStack.length; c++)
+            for (int i=0; i<height/colorStack.length; i++)
+                for (int x=0; x<width; x++)
+                    pixels[c*3*11 + 11*i + x] = colorStack[c];
         return phi.SetColorImage(pixels);
     }
-    private PulseColor int2pc(int rgb){
+    public PulseColor int2pc(int rgb){
         return new PulseColor(
             (byte) (rgb >> 16),
             (byte) (rgb >> 8),
