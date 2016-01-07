@@ -1,5 +1,6 @@
 package us.chary.pulsenotify;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +14,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        final Activity activity = this;
         findViewById(R.id.thing).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Pulse pulse = new Pulse();
+                pulse.connect(activity);
+                pulse.pushColor(0xff0000);
+                pulse.pushColor(0x00ff00);
+                pulse.pushColor(0x0000ff);
             }
         });
     }
