@@ -105,7 +105,7 @@ public class Pulse {
             if((colorStack[i].red == ((byte) (argb >> 16))) &&
                (colorStack[i].green == ((byte) (argb >> 8))) &&
                (colorStack[i].blue == ((byte) (argb)))) {
-                pushColor(0x000000, i);
+                return pushColor(0x000000, i);
                 // TODO make remaining colors move up
             }
         }
