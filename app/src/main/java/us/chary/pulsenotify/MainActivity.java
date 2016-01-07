@@ -25,7 +25,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        NotificationListener.registerNotifListenerOnBtn(this);
+        findViewById(R.id.fb_notif).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationListener.sendNotif(activity, "notification from facebook");
+            }
+        });
+
+        findViewById(R.id.gmail_notif).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationListener.sendNotif(activity, "notification from gmail");
+            }
+        });
+
+        findViewById(R.id.hangouts_notif).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationListener.sendNotif(activity, "notification from hangouts");
+            }
+        });
+
         NotificationListener.registerCalendarNotifierListenerOnBtn(this);
     }
 

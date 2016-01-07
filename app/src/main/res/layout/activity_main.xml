@@ -6,17 +6,31 @@
     android:layout_width="match_parent">
     <Button
         android:id="@+id/thing"
-        android:text="Do pulse thing"
+        android:text="Connect Pulse (tap me first)"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/send_notif_btn"
-        android:text="Send notification"
+        android:id="@+id/fb_notif"
+        android:layout_marginTop="20dp"
+        android:text="Send FB notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/gmail_notif"
+        android:layout_marginTop="20dp"
+        android:text="Send gmail notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/hangouts_notif"
+        android:text="Send hangouts notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/calendar_btn"
-        android:text="Update Pulse with time to next event"
+        android:text="Start Calendar Countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
