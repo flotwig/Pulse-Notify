@@ -15,12 +15,15 @@ public class CalendarUtil {
     public static ArrayList<String> descriptions = new ArrayList<String>();
 
     public static ArrayList<String> readCalendarEvent(Context context) {
+        String[] vec = new String[] { "dtend"};
+        String selectionClause = "(dtend >= ?)";
+        String[] selectionsArgs = new String[]{"" + System.currentTimeMillis()};
+
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
-                        new String[]{"calendar_id", "title", "description",
-                                "dtstart", "dtend", "eventLocation"}, null,
-                        null, null);
+                        vec, selectionClause,
+                        selectionsArgs, null);
         cursor.moveToFirst();
         // fetching calendars name
         String CNames[] = new String[cursor.getCount()];
@@ -31,14 +34,11 @@ public class CalendarUtil {
         endDates.clear();
         descriptions.clear();
         for (int i = 0; i < CNames.length; i++) {
-
-            nameOfEvent.add(cursor.getString(1));
-            startDates.add(Long.valueOf(cursor.getString(3)));
-            endDates.add(Long.valueOf(cursor.getString(4)));
-            descriptions.add(cursor.getString(2));
-            CNames[i] = cursor.getString(1);
+            try{
+                startDates.add(Long.valueOf(cursor.getString(0)));
+            }catch (NumberFormatException e){
+            }
             cursor.moveToNext();
-
         }
         return nameOfEvent;
     }

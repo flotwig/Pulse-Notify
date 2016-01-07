@@ -109,6 +109,7 @@ public class Pulse {
                 // TODO make remaining colors move up
             }
         }
+        return false;
     }
     private Boolean render() {
         // 3x2 lines of color separated by 3x1 lines of black

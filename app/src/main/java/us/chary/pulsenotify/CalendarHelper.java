@@ -2,8 +2,6 @@ package us.chary.pulsenotify;
 
 import android.content.Context;
 
-import java.util.List;
-
 public class CalendarHelper {
 
     public long getTimeBetweenNowAndNextEvent(Context context){
@@ -13,15 +11,6 @@ public class CalendarHelper {
     }
 
     private long getNextEvent(){
-        List<Long> dates = CalendarUtil.startDates;
-        long longestDate = 0;
-
-        for (Long date: dates){
-            if(date <= longestDate){
-                longestDate = date;
-            }
-        }
-
-        return longestDate;
+        return CalendarUtil.startDates.get(0);
     }
 }
