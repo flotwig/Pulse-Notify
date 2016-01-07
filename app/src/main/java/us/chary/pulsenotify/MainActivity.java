@@ -18,13 +18,19 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.thing).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 Pulse pulse = new Pulse();
                 pulse.connect(activity);
                 pulse.pushColor(0xff0000);
                 pulse.pushColor(0x00ff00);
                 pulse.pushColor(0x0000ff);
+=======
+
+>>>>>>> d6aa3bfe90c775696e4df204ca839af7e0b761de
             }
         });
+
+        NotificationListener.registerNotifListenerOnBtn(this);
     }
 
     @Override

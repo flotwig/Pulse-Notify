@@ -14,7 +14,7 @@ import com.harman.pulsesdk.ImplementPulseHandler;
  * Created by Zach on 1/6/2016.
  */
 public class Pulse {
-    private PulseHandlerInterface phi;
+    public PulseHandlerInterface phi;
     private PulseColor[] colorStack;
     final private String LOG_TAG = "PulseEvent";
     public Pulse() {
@@ -92,6 +92,7 @@ public class Pulse {
         colorStack[1] = colorStack[0];
         // extract R,G,B bytes from ARGB integer
         colorStack[0] = int2pc(argb);
+        Log.i("Color pushed: " + argb)
         return render();
     }
     public Boolean pushColor(int argb, int index) {
