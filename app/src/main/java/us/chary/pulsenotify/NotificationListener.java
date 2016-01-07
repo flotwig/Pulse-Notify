@@ -13,11 +13,19 @@ import java.util.ArrayList;
 
 public class NotificationListener extends NotificationListenerService {
 
-    private Pulse pulse;
+    private static Pulse pulse;
     private ArrayList<String> activeNotifs = new ArrayList<>();
 
+    public static Pulse getPulseInstance(){
+        if(pulse != null){
+            pulse = new Pulse();
+        }
+
+        return pulse;
+    }
+
     public NotificationListener() {
-        pulse = new Pulse();
+        getPulseInstance();
         pulse.connect((Activity) getApplication().getApplicationContext());
     }
 
@@ -58,6 +66,19 @@ public class NotificationListener extends NotificationListenerService {
                         .build();
 
                 ((NotificationManager) activity.getSystemService(NOTIFICATION_SERVICE)).notify(500, notification);
+            }
+        });
+    }
+
+    public static void registerCalendarNotifierListenerOnBtn(final Activity activity) {
+        activity.findViewById(R.id.calendar_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long f = new CalendarHelper().getTimeBetweenNowAndNextEvent(activity);
+                if(f < 27000000){
+                    long actual = (System.currentTimeMillis() / f) * 100;
+                    getPulseInstance();
+                }
             }
         });
     }
