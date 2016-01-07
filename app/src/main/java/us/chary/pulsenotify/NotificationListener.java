@@ -13,39 +13,62 @@ import java.util.ArrayList;
 
 public class NotificationListener extends NotificationListenerService {
 
-    private static Pulse pulse;
+    public static final int FACEBOOK_COLOR = 0x0011ff;
+    public static final int GMAIL_COLOR = 0xff1100;
+    public static final int HANGOUTS_COLOR = 0x11ff11;
+    public static Pulse pulse = new Pulse();
     private ArrayList<String> activeNotifs = new ArrayList<>();
 
-    public static Pulse getPulseInstance(){
-        if(pulse != null){
-            pulse = new Pulse();
-        }
-
-        return pulse;
-    }
 
     public NotificationListener() {
-        getPulseInstance();
-        pulse.connect((Activity) getApplication().getApplicationContext());
-    }
-
-    @Override
-    public void onNotificationRemoved(StatusBarNotification sbn) {
-//        activeNotifs.remove(sbn.getPackageName());
+        Log.d("WATCH", "instantiated");
+//        pulse.connect((Activity) getApplication().getApplicationContext());
     }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
+
+    }
+
+    @Override
+    public void onNotificationRemoved(StatusBarNotification sbn) {
+        String pkgName = sbn.getPackageName();
+        if(pkgName.equalsIgnoreCase("com.facebook.orca")){
+            pulse.removeColor(FACEBOOK_COLOR);
+        }else if(pkgName.contains("com.google.android.gm")){
+            pulse.removeColor(GMAIL_COLOR);
+        }else if(pkgName.contains("com.google.android.talk")){
+            pulse.removeColor(HANGOUTS_COLOR);
+        }
+    }
+
+    @Override
+    public void onNotificationRemoved(StatusBarNotification sbn, RankingMap rankingMap) {
+        String pkgName = sbn.getPackageName();
+        if(pkgName.equalsIgnoreCase("com.facebook.orca")){
+            pulse.removeColor(FACEBOOK_COLOR);
+        }else if(pkgName.contains("com.google.android.gm")){
+            pulse.removeColor(GMAIL_COLOR);
+        }else if(pkgName.contains("com.google.android.talk")){
+            pulse.removeColor(HANGOUTS_COLOR);
+        }
+    }
+
+    @Override
+    public void onNotificationPosted(StatusBarNotification sbn, RankingMap rankingMap) {
         Log.d("WATCH", sbn.getPackageName());
         String pkgName = sbn.getPackageName();
-        int color = sbn.getNotification().color;
 
         if(pkgName.equalsIgnoreCase("com.facebook.orca")){
-            pulse.pushColor(color);
+            pulse.pushColor(FACEBOOK_COLOR);
             activeNotifs.add(pkgName);
             Log.d("WATCH", "facebook thing. Color is " + sbn.getNotification().color);
-        }else if(pkgName.equalsIgnoreCase("com.google.android.gm")){
-            pulse.pushColor(color);
+        }else if(pkgName.contains("com.google.android.gm")){
+            pulse.pushColor(GMAIL_COLOR);
+            activeNotifs.add(pkgName);
+            Log.d("WATCH", "google thing. Color is " + sbn.getNotification().color);
+        }else if(pkgName.contains("com.google.android.talk")){
+            pulse.pushColor(HANGOUTS_COLOR);
             activeNotifs.add(pkgName);
             Log.d("WATCH", "google thing. Color is " + sbn.getNotification().color);
         }
@@ -77,7 +100,7 @@ public class NotificationListener extends NotificationListenerService {
                 long f = new CalendarHelper().getTimeBetweenNowAndNextEvent(activity);
                 if(f < 27000000){
                     long actual = (System.currentTimeMillis() / f) * 100;
-                    getPulseInstance();
+                    Log.d("WATCH", "time between next event and now: " + f + ", percent " + actual);
                 }
             }
         });
